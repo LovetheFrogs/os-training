@@ -1,9 +1,10 @@
-#include "framebuffer.c"
+#include "drivers/framebuffer.c"
 
-void kmain() {    
-    /* Define the output to the framebuffer */    
+void kmain()
+{
+    /* Define the output to the framebuffer */
     char buf[] = "Hello World!";
-    
+
     /* Clear the screen at startup */
     fb_clear();
 
