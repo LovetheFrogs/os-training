@@ -1,13 +1,14 @@
-#include "drivers/framebuffer.c"
+#include "drivers/framebuffer.h"
+#include "drivers/serialport.h"
 
 void kmain()
 {
-    /* Define the output to the framebuffer */
-    char buf[] = "Hello World!";
-
-    /* Clear the screen at startup */
+    char buf[] = "This is lovethefrogs' OS.";
+    char res[1];
     fb_clear();
+    res[0] = fb_write(buf, sizeof(buf)) + 49;
+    serial_write(SERIAL_COM1_BASE, res, sizeof(res));
 
-    /* Write the output defined at line 4 */
-    fb_write(buf, sizeof(buf));
+    char buff[] = "Check the out log to see result of previous print!";
+    fb_write(buff, sizeof(buff));
 }
