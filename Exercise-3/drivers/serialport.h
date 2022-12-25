@@ -35,9 +35,9 @@ void serial_configure_fifo_queue(unsigned short com);
 
 void serial_configure_modem(unsigned short com);
 
-int serial_is_transmit_fifo_empty(unsigned short com);
+int serial_is_transmit_fifo_empty(unsigned int com);
 
-void serial_write_byte(unsigned short com, unsigned char data);
+void serial_write_byte(unsigned short com, char data);
 
 void serial_configure(unsigned short com, unsigned short divisor);
 

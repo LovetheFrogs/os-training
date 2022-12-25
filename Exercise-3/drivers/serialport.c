@@ -28,7 +28,7 @@ void serial_configure_line(unsigned short com)
      * Content:  | d | b | prty  | s | dl  |
      * Value:    | 0 | 0 | 0 0 0 | 0 | 1 1 | = 0x03
      */
-    outb(SERIAL_LINE_COMMANDPORT(com), 0x03);
+    outb(SERIAL_LINE_COMMAND_PORT(com), 0x03);
 }
 
 /** serial_configure_fifo_queue:
@@ -71,7 +71,7 @@ void serial_configure_modem(unsigned short com)
  *  @return     0 if the transmit FIFO queue is not empty
  *              1 if the transmit FIFO queue is empty
  */
-int serial_is_transmit_fifo_empty(unsigned short com)
+int serial_is_transmit_fifo_empty(unsigned int com)
 {
     /* 0x20 = 0010 0000 */
     return inb(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
@@ -83,7 +83,7 @@ int serial_is_transmit_fifo_empty(unsigned short com)
  *  @param com  The COM port
  *  @param data The byte to write
  */
-void serial_write_byte(unsigned short com, unsigned char data)
+void serial_write_byte(unsigned short com, char data)
 {
     outb(com, data);
 }
@@ -119,17 +119,15 @@ void serial_configure(unsigned short com, unsigned short divisor)
  */
 int serial_write(unsigned short com, char *buf, unsigned int len)
 {
-    int index = 0;
+    unsigned int index = 0;
     serial_configure(com, 4);
     while (index < len)
     {
-        if (serial_is_transmit_fifo_empty(com) == 1)
+        if (serial_is_transmit_fifo_empty(com))
         {
             serial_write_byte(com, buf[index]);
             index++;
         }
-        else
-            continue;
     }
 
     return len - (index + 1);

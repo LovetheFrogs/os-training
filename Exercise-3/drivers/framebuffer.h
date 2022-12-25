@@ -36,9 +36,6 @@
 /* TO_POSITION transform a pair (row, col) to a position i wich can be used by fb_write_cell method */
 #define TO_POSITION(row, col) ((col + (row * NUM_OF_COLS)) * 2)
 
-/* Reference to framebuffer start memory position */
-static char *fb = (char *) 0x000B8000;
-
 void fb_write_cell(unsigned int i, char c, unsigned char fg, unsigned char bg);
 
 void fb_move_cursor(unsigned short pos);

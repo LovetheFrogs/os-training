@@ -1,5 +1,9 @@
 #include "framebuffer.h"
 
+/* Reference to framebuffer start memory position */
+static char *fb = (char *) 0x000B8000;
+unsigned int scr = 0;
+
 /** read_cell
  *  Reads the specified cell.
  *
@@ -69,7 +73,6 @@ void fb_move_cursor(unsigned short pos)
 int fb_write(char *buf, unsigned int len)
 {
     unsigned int i;
-    unsigned int scr = 0;
 
     for (i = 0; i < len; i++)
     {
