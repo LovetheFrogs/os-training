@@ -27,8 +27,8 @@ struct idtEntry
     unsigned short offset_l;
     unsigned short kernel_cs;
     unsigned char reserved;
-    unsigned char atributes;
-    unsigned short offset_h
+    unsigned char attributes;
+    unsigned short offset_h;
 } __attribute__((packed));
 
 /** cpuState is a custom data structure used to catch the values of the registers
@@ -65,6 +65,10 @@ struct stackState
  */
 void idtb(struct idtDescriptor descriptor);
 
-void interrupt_handler(struct cpuState reg_state, struct stackState stack_state, unsigned int inr_code);
+void idt_set_descriptor(unsigned char vector, void* isr, unsigned char flags);
+
+void idtr_init();
+
+void interrupt_handler(struct cpuState reg_state, struct stackState stack_state, unsigned int itr_code);
 
 #endif /* INCLUDE_INTERRUPTIONS_H */
