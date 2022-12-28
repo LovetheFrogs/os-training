@@ -65,4 +65,6 @@ struct stackState
  */
 void idtb(struct idtDescriptor descriptor);
 
+void interrupt_handler(struct cpuState reg_state, struct stackState stack_state, unsigned int inr_code);
+
 #endif /* INCLUDE_INTERRUPTIONS_H */
