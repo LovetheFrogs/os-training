@@ -28,4 +28,13 @@ struct idtEntry
     unsigned short offset_h
 } __attribute__((packed));
 
+/** idtb:
+ *  Function idtb takes the atributes of an Interrupt Descriptor Table (namely it's size
+ *  and address where it starts) and signals the CPU, using the lidt assembly instruction,
+ *  on this information so it uses this data to comply with interruption handling.
+ * 
+ *  @param descriptor data structure holding the size and address of IDT
+*/
+void idtb(struct idtDescriptor descriptor);
+
 #endif /* INCLUDE_INTERRUPTIONS_H */
