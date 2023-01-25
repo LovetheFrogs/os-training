@@ -44,4 +44,6 @@ int fb_write(char *buf, unsigned int len);
 
 void fb_clear();
 
+void fb_clear_cell(unsigned int scr);
+
 #endif /* FRAMEBUFFER_H */

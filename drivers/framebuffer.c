@@ -1,7 +1,7 @@
 #include "framebuffer.h"
 
 /* Reference to framebuffer start memory position */
-static char *fb = (char *) 0x000B8000;
+static char *fb = (char *)0x000B8000;
 unsigned int scr = 0;
 
 /** read_cell
@@ -102,4 +102,16 @@ void fb_clear()
             fb_write_cell(TO_POSITION(r, c), ' ', FB_BLACK, FB_WHITE);
         }
     }
+}
+
+/** fb_clear_cell:
+ *  Clears the cell scr, used when backspace is detected.
+ *
+ *  @param scr The position to delete
+ */
+void fb_clear_cell(unsigned int scr)
+{
+    fb_write_cell(scr * 2, ' ', FB_BLACK, FB_WHITE);
+    if (scr != 0)
+        fb_move_cursor(scr - 1);
 }

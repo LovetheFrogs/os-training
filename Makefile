@@ -1,4 +1,4 @@
-OBJECTS = loader.o kmain.o drivers/io.o drivers/framebuffer.o drivers/serialport.o segmentation/gdt.o segmentation/segmentation.o
+OBJECTS = loader.o kmain.o drivers/io.o drivers/framebuffer.o drivers/serialport.o segmentation/gdt.o segmentation/segmentation.o interruptions/handler.o interruptions/idt.o interruptions/interrupts.o interruptions/pic.o interruptions/keyboard.o
 CC = gcc
 CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 			-nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
@@ -34,4 +34,4 @@ run: os.iso
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm -rf *.o kernel.elf os.iso drivers/*.o lib/*.o segmentation/*.o
+	rm -rf *.o kernel.elf os.iso drivers/*.o lib/*.o segmentation/*.o interruptions/*.o
