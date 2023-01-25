@@ -2,7 +2,10 @@
 #define INCLUDE_INTERRUPTS_H
 
 /* Number of signals added to the IDT */
-#define NUM_OF_SIGNALS 3
+#define NUM_OF_SIGNALS 256
+
+/* Interrupt signals */
+#define KEYBOARD_ITR 33
 
 /** idtDescriptor is a data structure used to contain the start address and size of the
  *  Interrupt Descriptor Table. It simulates the following bit configuration:
@@ -63,12 +66,16 @@ struct stackState
  *
  *  @param descriptor data structure holding the size and address of IDT
  */
-void idtb(struct idtDescriptor descriptor);
+void idtb(unsigned int descriptor);
 
-void idt_set_descriptor(unsigned char vector, void* isr, unsigned char flags);
+void interrupt_handler_33();
+
+void idt_set_descriptor(int vector, unsigned int isr, unsigned char flags);
 
 void idtr_init();
 
-void interrupt_handler(struct cpuState reg_state, struct stackState stack_state, unsigned int itr_code);
+void interrupt_handler(__attribute__((unused)) struct cpuState reg_state, unsigned int itr_code, __attribute__((unused)) struct stackState stack_state);
+
+void itr_33_handler();
 
 #endif /* INCLUDE_INTERRUPTIONS_H */
