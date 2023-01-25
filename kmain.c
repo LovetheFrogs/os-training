@@ -2,7 +2,7 @@
 #include "drivers/serialport.h"
 #include "segmentation/segmentation.h"
 #include "interruptions/interrupts.h"
-
+#include "multiboot.h"
 
 void init()
 {
@@ -11,11 +11,9 @@ void init()
     idtr_init();
 }
 
-
-void kmain()
+void kmain(unsigned int ebx)
 {
     init();
-
     char buf[] = "This is lovethefrogs' OS.";
     char res[1];
     fb_clear();
@@ -25,4 +23,12 @@ void kmain()
 
     char buff[] = "Check the out log to see result of previous print!";
     fb_write(buff, sizeof(buff));
+
+    multiboot_info_t *mbinfo = (multiboot_info_t *)ebx;
+    multiboot_module_t *module_data = (multiboot_module_t *)mbinfo->mods_addr;
+    unsigned int address = module_data->mod_start;
+
+    typedef void (*call_module_t)(void);
+    call_module_t run = (call_module_t)address;
+    run();
 }
