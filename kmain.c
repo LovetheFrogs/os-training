@@ -1,0 +1,28 @@
+#include "drivers/framebuffer.h"
+#include "drivers/serialport.h"
+#include "segmentation/segmentation.h"
+#include "interruptions/interrupts.h"
+
+
+void init()
+{
+    create_gdt();
+    serial_configure(SERIAL_COM1_BASE, 1);
+    idtr_init();
+}
+
+
+void kmain()
+{
+    init();
+
+    char buf[] = "This is lovethefrogs' OS.";
+    char res[1];
+    fb_clear();
+
+    res[0] = fb_write(buf, sizeof(buf)) + 49;
+    serial_write(SERIAL_COM1_BASE, res, sizeof(res));
+
+    char buff[] = "Check the out log to see result of previous print!";
+    fb_write(buff, sizeof(buff));
+}

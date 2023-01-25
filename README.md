@@ -1,0 +1,1 @@
+![Total lines](https://img.shields.io/tokei/lines/github.com/LovetheFrogs/os-training?color=green&label=total%20lines)
